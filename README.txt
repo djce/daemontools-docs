@@ -1,7 +1,7 @@
-What is this?
-=============
+What and Why
+============
 
-A collection of supplementary documentation about daemontools
+This is a collection of supplementary documentation about daemontools
 <http://cr.yp.to/daemontools.html>.
 
 To quote the above page,
@@ -17,15 +17,21 @@ To quote the above page,
   patterns. It automatically rotates logs to limit the amount of disk space used.
   If the disk fills up, it pauses and tries again, without losing any data. 
 
-What is this NOT?
-=================
-
 It's not a reference manual for the daemontools programs.  Please refer to
 your system's man pages (if provided), or the daemontools home page (see
 above, otherwise), for that.
 
 Rather, it's a collection of documentation about how to use daemontools in
 practice.
+
+Although the daemontools home page includes documentation which accurately and
+succinctly describes what each program in the suite does, many people find
+that it's hard then to work out how to make best use of those programs in the
+real world.  Until you understand how daemontools works, it's easy to get
+yourself tangled up in knots.
+
+This documentation exists to help you make the best use of daemontools,
+avoiding the common traps and pitfalls.
 
 Contents
 ========
