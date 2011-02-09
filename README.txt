@@ -22,6 +22,7 @@ Contents
 
 README.txt              This file
 introduction.txt        An introduction to daemontools
+debugging.txt           How to debug service problems and disentangle things
 
 Credits
 =======
