@@ -17,6 +17,16 @@ To quote the above page,
   patterns. It automatically rotates logs to limit the amount of disk space used.
   If the disk fills up, it pauses and tries again, without losing any data. 
 
+What is this NOT?
+=================
+
+It's not a reference manual for the daemontools programs.  Please refer to
+your system's man pages (if provided), or the daemontools home page (see
+above, otherwise), for that.
+
+Rather, it's a collection of documentation about how to use daemontools in
+practice.
+
 Contents
 ========
 
