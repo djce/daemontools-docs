@@ -342,8 +342,8 @@ A useful command to tail the logs and decode timestamps is:
 
   tail -F log/main/current | tai64nlocal
 
-mutlilog can in fact lots more than that, including sending each input line to
-any number of output logs, perhaps based on pattern-matching the input line
+mutlilog can in fact do lots more than that, including sending each input line
+to any number of output logs, perhaps based on pattern-matching the input line
 (e.g. one log for everything, another log only for lines starting with ERROR).
 
 envdir, setuidgid and softlimit
