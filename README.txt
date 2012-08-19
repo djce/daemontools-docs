@@ -33,6 +33,9 @@ yourself tangled up in knots.
 This documentation exists to help you make the best use of daemontools,
 avoiding the common traps and pitfalls.
 
+All of the examples provided are on Gnu/Linux.  You may have to vary some of
+the commands (lsof, pkill, etc) on other systems.
+
 Contents
 ========
 

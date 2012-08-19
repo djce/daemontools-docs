@@ -1,6 +1,53 @@
 How to debug problems with services / How to untangle things
 ============================================================
 
+A happy system
+--------------
+
+Here's an example of a system that's happy:
+
+rachel@lenny:~$ ps -AHwefl
+...
+root     26421     1  0 Jul31 ?        00:00:00   /bin/sh /usr/bin/svscanboot
+root     26423 26421  0 Jul31 ?        00:00:36     svscan /etc/service
+root     26425 26423  0 Jul31 ?        00:00:00       supervise nginx
+root     22433 26425  0 Aug03 ?        00:00:00         nginx: master process /usr/sbin/nginx -c ./nginx.conf
+www-data 17250 22433  4 Aug10 ?        08:22:01           nginx: worker process          
+www-data 17251 22433  4 Aug10 ?        08:21:05           nginx: worker process          
+www-data 17252 22433  4 Aug10 ?        08:16:08           nginx: worker process          
+www-data 17253 22433  4 Aug10 ?        08:28:22           nginx: worker process          
+root     26426 26423  0 Jul31 ?        00:00:00       supervise log
+nobody   26444 26426  0 Jul31 ?        00:00:00         multilog t ./main
+root     26429 26423  0 Jul31 ?        00:00:00       supervise tinydns
+tinydns  29041 26429  0 Jul31 ?        00:00:01         /usr/bin/tinydns
+root     26430 26423  0 Jul31 ?        00:00:00       supervise log
+dnslog   26438 26430  0 Jul31 ?        00:00:00         multilog t ./main
+root     26433 26423  0 Jul31 ?        00:00:00       supervise dnscache
+dnscache 29078 26433  0 Jul31 ?        00:12:45         /usr/bin/dnscache
+root     26434 26423  0 Jul31 ?        00:00:00       supervise log
+dnslog   26439 26434  0 Jul31 ?        00:06:07         multilog t +@* query * -@* tx * -@* rx * -@* rr * -@* cached * -@* sent * -@* nodata * * 28 * -@* stats  ./main
+root     26424 26421  0 Jul31 ?        00:00:00     readproctitle service errors: ...................................................................................
+...
+
+rachel@lenny:~$ sudo svstat  /etc/service/* /etc/service/*/log
+/etc/service/dnscache: up (pid 29078) 1628012 seconds, normally down
+/etc/service/nginx: up (pid 22433) 1394958 seconds, normally down
+/etc/service/tinydns: up (pid 29041) 1628012 seconds, normally down
+/etc/service/dnscache/log: up (pid 26439) 1628046 seconds
+/etc/service/nginx/log: up (pid 26444) 1628046 seconds
+/etc/service/tinydns/log: up (pid 26438) 1628046 seconds
+rachel@lenny:~$ 
+
+What about this tells me that it's happy?
+
+ - the 'supervise' processes alternate between services and log services
+   (nginx, log, tinydns, log, dnscache, log)
+ - all the supervised processes are up (each 'supervise' has a child, and it's
+   not a zombie)
+ - all the supervised processes have been up for a long time (i.e. they aren't
+   continuously starting, crashing, restarting, crashing, ...)
+ - 'readproctitle' shows no errors
+
 An unhappy system
 -----------------
 
@@ -80,7 +127,7 @@ links are in place before you delete them:
 This will stop svscan from trying to start up any new services, or any
 services whose "supervise" processes disappear.
 
-Next, stop all your services.  To do this you could "cd" to each service
+Next, stop all your services.  To do this you should "cd" to each service
 directory in turn (you can't use the symlinks now, because they're gone),
 and use "svc" to stop the both the service and supervise:
 
