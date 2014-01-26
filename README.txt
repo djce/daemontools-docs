@@ -46,6 +46,6 @@ debugging.txt           How to debug service problems and disentangle things
 Credits
 =======
 
-The documentation lives on github <https://gitcom.com/rvedotrc/daemontools-docs>
+The documentation lives on github <https://github.com/rvedotrc/daemontools-docs>
 and is maintained by Rachel Evans <http://rve.org.uk/>.
 
